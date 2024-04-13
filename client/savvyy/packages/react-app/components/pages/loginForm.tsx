@@ -3,7 +3,7 @@ import { Container, Image, Text, Button, Stack,FormControl,Box,Flex, Heading, In
 import {MdCall,MdSend} from "react-icons/md"
 
 
-export default function SignUpForm() {
+export default function LoginForm() {
   const { toggleColorMode } = useColorMode();
   const formBackground = useColorModeValue('gray.100', 'gray.700')
   return (
@@ -16,9 +16,9 @@ export default function SignUpForm() {
         borderRadius={8}
         boxShadow="lg"
       >
-        <Heading mb={6}>SignUp</Heading>
+        <Heading mb={6}>Log In</Heading>
         <Input
-          placeholder="+254701707772"
+          placeholder="johndoe@gmail.com"
           type="email"
           variant="filled"
           mb={3}
@@ -27,20 +27,13 @@ export default function SignUpForm() {
           placeholder="**********"
           type="password"
           variant="filled"
-          mb={3}
-        />
-        <Input
-          placeholder="confirm Password"
-          type="password"
-          variant="filled"
           mb={6}
         />
         <Button colorScheme="teal" mb={8}>
-          Sign up
+          Log In
         </Button>
         <FormControl display="flex" alignItems="center">
           {/* <FormLabel htmlFor="dark_mode" mb="0">
-            
             Enable Dark Mode?
           </FormLabel>
           <Switch
@@ -50,11 +43,10 @@ export default function SignUpForm() {
             onChange={toggleColorMode}
           /> */}
           <HStack>
-            <Text>Have an account</Text>
-            <Button >Login</Button>
+          <Text>Don't have an account?</Text>
+            <Button >Signup</Button>
+
           </HStack>
-         
-          
         </FormControl>
       </Flex>
     </Flex>

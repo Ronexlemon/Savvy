@@ -54,7 +54,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         <WagmiProvider config={config}>
             <QueryClientProvider client={queryClient}>
                 <RainbowKitProvider>
-                <ChakraProvider>
+                <ChakraProvider >
 
                     
                         {component}
