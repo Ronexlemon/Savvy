@@ -19,9 +19,11 @@ export default function SignUpForm() {
         <Heading mb={6}>SignUp</Heading>
         <Input
           placeholder="+254701707772"
-          type="email"
+          type="number"
           variant="filled"
           mb={3}
+          required= {true}
+
         />
         <Input
           placeholder="**********"

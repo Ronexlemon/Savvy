@@ -18,16 +18,18 @@ export default function LoginForm() {
       >
         <Heading mb={6}>Log In</Heading>
         <Input
-          placeholder="johndoe@gmail.com"
-          type="email"
+          placeholder="+254701707772"
+          type="number"
           variant="filled"
           mb={3}
+          required={true}
         />
         <Input
           placeholder="**********"
           type="password"
           variant="filled"
           mb={6}
+          required={true}
         />
         <Button colorScheme="teal" mb={8}>
           Log In
