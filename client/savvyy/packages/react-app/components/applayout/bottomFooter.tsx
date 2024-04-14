@@ -6,7 +6,7 @@ import { FaWallet, FaUser } from "react-icons/fa6";
 
 const FooterLayout = () => {
   return (
-    <footer className="bg-gray-300 mt-auto border-gray-300 border-t relative">
+    <footer className="bg-gray-50 mt-auto border-gray-300 border-t relative">
       <Flex h="10vh" justifyContent="center" alignItems="center">
         <Flex w="80vh" alignItems="center">
           <HStack spacing={1} flex="1" justify="space-around">
