@@ -23,10 +23,10 @@ export default function GetStartedPage() {
       Spend smarter
       Save More
     </Text>
-    <Button colorScheme="green" width="60%" rightIcon={<MdSend/>}>Get Started</Button>
+    <Button colorScheme="green" w='70%' rightIcon={<MdSend/>}>Get Started</Button>
     <Stack direction='row'>
-    <Text>Already Have account?</Text>
-    <Button colorScheme="green" variant='link'>Login</Button>
+    <Text color='black'>Already Have account?</Text>
+    <Button  colorScheme="green" variant='link'>Login</Button>
     </Stack>
     
   </Container>

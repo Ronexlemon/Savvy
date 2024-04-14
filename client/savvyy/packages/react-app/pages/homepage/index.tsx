@@ -9,6 +9,7 @@ import GetStartedPage from "@/components/pages/GetStarted";
 import SignUpForm from "@/components/pages/signupForm";
 import LoginForm from "@/components/pages/loginForm";
 import AppLayout from "@/components/applayout/appLayout";
+import Home from "@/components/pages/HomePage";
 const HomePage:NextPageWithLayout =()=> {
     const [userAddress, setUserAddress] = useState("");
     const [isMounted, setIsMounted] = useState(false);
@@ -29,9 +30,11 @@ const HomePage:NextPageWithLayout =()=> {
     }
 
     return (
-        <div className="flex flex-col ">
-           <p className="text-black">hello</p>
-        </div>
+        <>
+        <Home/>
+        </>
+          
+        
     );
 }
 
