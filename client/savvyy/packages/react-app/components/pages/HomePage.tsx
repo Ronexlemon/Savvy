@@ -4,6 +4,8 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { MdArrowUpward,MdArrowDownward } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { MdLocalGroceryStore } from "react-icons/md";
+import { GiThreeFriends } from "react-icons/gi";
+import { RiFolderReceivedFill,RiFolderTransferFill } from "react-icons/ri";
 export default function Home() {
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
@@ -70,34 +72,35 @@ export default function Home() {
         <Flex direction='row' w='100%' height='10%'alignItems='center'   padding={4} justifyContent='space-between'  mb="10px">
                 <HStack>
                     <Button leftIcon={<MdLocalGroceryStore color="red"/>}/>
-                    <Text>Utility</Text>
+                    <Text color='black'>Utility</Text>
                 </HStack>             
                 
                 <Text color='red.500'>-$ 2,548.00</Text>
             </Flex>
             <Flex direction='row' w='100%' height='10%'alignItems='center'  padding={4} justifyContent='space-between'  mb="10px">
                 <HStack>
-                    <Button leftIcon={<MdLocalGroceryStore color="red"/>}/>
-                    <Text>Utility</Text>
+                    <Button leftIcon={<RiFolderTransferFill color="red"/>}/>
+                    <Text color='black'>Transfer</Text>
                 </HStack>             
                 
                 <Text color='red.500'>-$ 2,548.00</Text>
             </Flex>
             <Flex direction='row' w='100%' height='10%'alignItems='center'  padding={4} justifyContent='space-between' mb="10px">
                 <HStack>
-                    <Button leftIcon={<MdLocalGroceryStore color="red"/>}/>
-                    <Text>Utility</Text>
+                    <Button leftIcon={<RiFolderReceivedFill color="green"/>}/>
+                    <Text color='black'>Received</Text>
                 </HStack>             
                 
-                <Text color='red.500'>-$ 2,548.00</Text>
+                <Text color='green.500'>+$ 2,548.00</Text>
             </Flex>
             <Flex direction='row' w='100%' height='10%'alignItems='center'  padding={4} justifyContent='space-between'>
-                <HStack>
-                    <Button leftIcon={<MdLocalGroceryStore color="red"/>}/>
-                    <Text>Utility</Text>
-                </HStack>             
+            <HStack height="100%">
                 
-                <Text color='red.500'>-$ 2,548.00</Text>
+                    <Button height='100%' leftIcon={<GiThreeFriends color="blue"/>}/>
+                    <Text color='black'>Friends</Text>
+                </HStack>              
+                
+                <Text color='red.500'>-$ 48.00</Text>
             </Flex>
             
 
