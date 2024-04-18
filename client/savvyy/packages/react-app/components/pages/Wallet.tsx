@@ -7,6 +7,9 @@ import { MdLocalGroceryStore } from "react-icons/md";
 import { GiThreeFriends } from "react-icons/gi";
 import { RiFolderReceivedFill,RiFolderTransferFill } from "react-icons/ri";
 import { FaMoneyCheckAlt } from "react-icons/fa";
+import { GoPlus } from "react-icons/go";
+import { IoQrCodeSharp } from "react-icons/io5";
+import { BsFillSendFill } from "react-icons/bs";
 export default function WalletPage() {
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
@@ -38,10 +41,17 @@ export default function WalletPage() {
     <Flex w='100%' direction='column' padding={1} justifyContent='center' alignItems='center' color='black'  >
         <Text color='black'>Total Balance</Text>
         <Text>$ 2,589</Text>
-        <HStack>
-        <Button leftIcon={<MdLocalGroceryStore color="red"/>}/>
-        <Button leftIcon={<MdLocalGroceryStore color="red"/>}/>
-        <Button leftIcon={<MdLocalGroceryStore color="red"/>}/>
+        <HStack w='100%' direction='row' alignItems='center' justifyContent='center' gap={10} paddingTop={4}>
+        <div className="rounded-full  border-green-500 border-2 h-14 w-14 flex justify-center items-center">
+    <Button leftIcon={<GoPlus color="green"  />} />
+</div>
+
+<div className="rounded-full border-2 border-green-500 h-14 w-14 flex justify-center items-center">
+    <Button leftIcon={<IoQrCodeSharp  color="green"  />} />
+</div>
+<div className="rounded-full border-2 border-green-500 h-14 w-14 flex justify-center items-center">
+    <Button leftIcon={<BsFillSendFill color="green"  />} />
+</div>
 
         </HStack>
 
@@ -77,7 +87,7 @@ export default function WalletPage() {
             <HStack height="100%">
                 
                     <Button height='100%' leftIcon={<GiThreeFriends color="blue"/>}/>
-                    <Text color='black'>Friends</Text>
+                    <Text color='black'>Friend3</Text>
                 </HStack>              
                 
                 <Text color='red.500'>-$ 48.00</Text>
