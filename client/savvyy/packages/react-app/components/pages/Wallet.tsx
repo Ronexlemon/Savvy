@@ -54,11 +54,29 @@ export default function WalletPage() {
 </div>
 
         </HStack>
+        <HStack w='100%' direction='row' alignItems='center' justifyContent='center' gap={16} paddingTop={4}>
+            <Text>Add</Text>
+            <Text>Pay</Text>
+            <Text>Send</Text>
+
+        </HStack>
 
     </Flex>
 
+    <div className="w-full  h-20 rounded-2xl bg-gray-300 flex justify-center items-center text-black mt-10 mb-10 ">
+        <Flex w="100%" justifyContent='space-around' alignItems='center'>
+            <Button backgroundColor='white'><Text color='black'>Transactions</Text></Button>
+            <Button><Text color='black'>Upcoming Bils</Text></Button>
+
+        </Flex>
+
+
+    </div>
+
+
+
     
-<Box w="100%"   height="60%" roundedBottom="20px" gap='5%'  >
+<Box w="100%"   maxH="100vh" height="80%" roundedBottom="20px" gap='5%'  color='red'   alignContent='space-between' >
         <Flex direction='row' w='100%' height='10%'alignItems='center'   padding={4} justifyContent='space-between'  mb="10px">
                 <HStack>
                     <Button leftIcon={<MdLocalGroceryStore color="red"/>}/>
