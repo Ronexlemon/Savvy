@@ -12,7 +12,7 @@ const  UserSchema = new Schema({
 
     password:{
         type:String,
-        required:false,
+        required:true,
     },
 
 
@@ -20,4 +20,4 @@ const  UserSchema = new Schema({
 {timestamps:true})
 
 
-module.exports = mongoose.models.User || mongoose.Model("User",UserSchema)
+module.exports = mongoose.models.User || mongoose.model("User", UserSchema);

@@ -6,7 +6,7 @@ const User = require("../../models/User")
 
 
 const createUser = async(phoneNumber,Password)=>{
-    const data = new User.create(
+    const data = new User(
         {
             phoneNumber:phoneNumber,
             password:Password
@@ -18,8 +18,8 @@ const createUser = async(phoneNumber,Password)=>{
 
 //function authenticate user
 
-const authenticate = async(phoneNumber,password)=>{
-    const data = await User.findOne({phoneNumber:phoneNumber,password:password});
+const authenticate = async(phoneNumber)=>{
+    const data = await User.findOne({phoneNumber:phoneNumber});
     return data;
 }
 
