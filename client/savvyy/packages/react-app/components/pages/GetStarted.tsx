@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Image, Text, Button, Stack } from "@chakra-ui/react";
 import {MdCall,MdSend} from "react-icons/md"
+import Link from "next/link";
 
 
 export default function GetStartedPage() {
@@ -23,10 +24,12 @@ export default function GetStartedPage() {
       Spend smarter
       Save More
     </Text>
-    <Button colorScheme="green" w='70%' rightIcon={<MdSend/>}>Get Started</Button>
+    <Link className="w-3/4" href='signup'><Button colorScheme="green" w='70%' rightIcon={<MdSend/>}>Signup</Button></Link>
+    
     <Stack direction='row'>
     <Text color='black'>Already Have account?</Text>
-    <Button  colorScheme="green" variant='link'>Login</Button>
+    <Link href='login'><Button  colorScheme="green" variant='link'>Login</Button></Link>
+    
     </Stack>
     
   </Container>

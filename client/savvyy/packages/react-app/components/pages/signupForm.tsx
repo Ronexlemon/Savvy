@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Image, Text, Button, Stack,FormControl,Box,Flex, Heading, Input, FormLabel, Switch, useColorMode, useColorModeValue, HStack } from "@chakra-ui/react";
 import {MdCall,MdSend} from "react-icons/md"
+import Link from "next/link";
 
 
 export default function SignUpForm() {
@@ -53,7 +54,8 @@ export default function SignUpForm() {
           /> */}
           <HStack>
             <Text>Have an account</Text>
-            <Button >Login</Button>
+            <Link href='login'><Button >Login</Button></Link>
+            
           </HStack>
          
           

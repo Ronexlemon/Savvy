@@ -10,6 +10,7 @@ import { FaMoneyCheckAlt } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { IoQrCodeSharp } from "react-icons/io5";
 import { BsFillSendFill } from "react-icons/bs";
+import Link from "next/link";
 export default function WalletPage() {
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
@@ -24,6 +25,7 @@ export default function WalletPage() {
                 
                 <VStack spacing='5px'>
                 <IoIosNotificationsOutline/>
+                <Link href='/'>Logout</Link>
 
                 </VStack>
                 

@@ -3,6 +3,7 @@ import { Button, Flex, HStack } from "@chakra-ui/react";
 import { CiHome } from "react-icons/ci";
 import { GiNetworkBars } from "react-icons/gi";
 import { FaWallet, FaUser } from "react-icons/fa6";
+import Link from "next/link";
 
 const WalletFooterLayout = () => {
   return (
@@ -10,10 +11,13 @@ const WalletFooterLayout = () => {
       <Flex h="10vh" justifyContent="center" alignItems="center">
         <Flex w="80vh" alignItems="center">
           <HStack spacing={1} flex="1" justify="space-around">
-            <Button flex="1" leftIcon={<CiHome color="black" />} />
-            <Button flex="1" leftIcon={<GiNetworkBars color="black" />} />
-            <Button flex="1" leftIcon={<FaWallet color="black" />} />
-            <Button flex="1" leftIcon={<FaUser color="black" />} />
+            <Link href='/homepage'> <Button  flex="1" leftIcon={<CiHome color="black" />} /></Link>
+            <Link href='/stats'>  <Button flex="1" leftIcon={<GiNetworkBars color="black" />} /></Link>
+            <Link href='/wallet'>  <Button flex="1" leftIcon={<FaWallet color="black" />} /></Link>
+            <Link href='/manage'>  <Button flex="1" leftIcon={<FaUser color="black" />} /></Link>
+           
+           
+           
           </HStack>
         </Flex>
         {/* Circular button

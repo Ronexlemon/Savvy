@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Image, Text, Button, Stack,FormControl,Box,Flex, Heading, Input, FormLabel, Switch, useColorMode, useColorModeValue, HStack } from "@chakra-ui/react";
 import {MdCall,MdSend} from "react-icons/md"
+import Link from "next/link";
 
 
 export default function LoginForm() {
@@ -31,9 +32,10 @@ export default function LoginForm() {
           mb={6}
           required={true}
         />
-        <Button colorScheme="teal" mb={8}>
+        <Link href='homepage'><Button colorScheme="teal" mb={8}>
           Log In
-        </Button>
+        </Button></Link>
+        
         <FormControl display="flex" alignItems="center">
           {/* <FormLabel htmlFor="dark_mode" mb="0">
             Enable Dark Mode?
@@ -46,7 +48,8 @@ export default function LoginForm() {
           /> */}
           <HStack>
           <Text>Don't have an account?</Text>
-            <Button >Signup</Button>
+          <Link href='signup'><Button >Signup</Button></Link>
+            
 
           </HStack>
         </FormControl>
