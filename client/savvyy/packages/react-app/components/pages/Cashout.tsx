@@ -10,6 +10,9 @@ import { FaMoneyCheckAlt } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { IoQrCodeSharp } from "react-icons/io5";
 import { BsFillSendFill } from "react-icons/bs";
+import { RiBankFill } from "react-icons/ri";
+import { FaCircleCheck } from "react-icons/fa6";
+import { SiCashapp } from "react-icons/si";
 export default function CashOutPage() {
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
@@ -47,29 +50,41 @@ export default function CashOutPage() {
 
 
     </div>
-    <div className="w-3/4 mr-5  h-1/4 rounded-2xl bg-gray-300 flex justify-center items-center text-black mt-10 mb-10 ">
+    <div className="w-3/4 mr-5  h-1/4 rounded-2xl bg-[#438883] bg-opacity-10 flex justify-center items-center text-black mt-10 mb-10 ">
         <Flex w="100%" justifyContent='space-around' alignItems='center'>
-            <Button rounded={15} backgroundColor='white'><Text color='black'>Cards</Text></Button>
-            <Button><Text rounded={5} color='black'>Accounts</Text></Button>
+            <div className="bg-[#FFFFFF] rounded-full h-20 w-20 flex justify-center items-center"><RiBankFill color="green" className="w-20 h-10"/></div>
+            <div className=" flex flex-col justify-center items-start ">
+                <Text fontSize='sm'>Onramp</Text>
+                <Text fontSize='sm'>Connect your bank </Text>
+                <Text fontSize='sm'>account to deposit & fund </Text>
+            </div>
+            
+            <FaCircleCheck color="green"  className="w-8 h-8"/>
+           
 
         </Flex>
 
 
     </div>
-    <div className="w-3/4 mr-5  h-16 rounded-2xl bg-gray-300 flex justify-center items-center text-black mt-10 mb-10 ">
-        <Flex w="100%" justifyContent='space-around' alignItems='center'>
-            <Button rounded={15} backgroundColor='white'><Text color='black'>Cards</Text></Button>
-            <Button><Text rounded={5} color='black'>Accounts</Text></Button>
+    <div className="w-3/4 mr-5  h-24 rounded-2xl bg-gray-300 flex justify-center items-center text-black mt-10 mb-10 ">
+    <Flex w="100%" justifyContent='space-around' alignItems='center' paddingRight={2}>
+            <div className=" rounded-full h-10 w-10 flex justify-center items-center"><SiCashapp  color="#888888" className="w-10 h-10"/></div>
+            <div className=" flex flex-col justify-center items-start ">
+                <Text fontSize='sm'>Withdraw to EOA</Text>
+                <Text fontSize='sm'>internet transfer </Text>
+                
+            </div>
+            
+          
 
         </Flex>
 
 
     </div>
-    <div className="w-3/4 mr-5  h-16 rounded-2xl bg-gray-300 flex justify-center items-center text-black mt-10 mb-10 ">
+    <div className="w-3/4 mr-5  h-16 rounded-2xl   border-green-400 border-2 flex justify-center items-center text-black mt-10 mb-10 ">
         <Flex w="100%" justifyContent='space-around' alignItems='center'>
-            <Button rounded={15} backgroundColor='white'><Text color='black'>Cards</Text></Button>
-            <Button><Text rounded={5} color='black'>Accounts</Text></Button>
-
+            <Button color='green'>Next</Button>
+            
         </Flex>
 
 
