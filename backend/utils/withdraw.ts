@@ -13,5 +13,10 @@ export const transferCUSD = async (address: string, userAddress: string ,amount:
 
     // Transfer the  amount to the external address.
     let txn = await CUSDContract.transfer(address, (ethers.utils.parseEther(amount)));
+    return txn;
        
 };
+
+module.exports = {
+    transferCUSD
+}
