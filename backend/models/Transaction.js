@@ -4,15 +4,17 @@ const mongoose = require("mongoose")
 const {Schema} = mongoose;
 
 const  TransactionSchema = new Schema({
-    reason:{
-        type:String,
-        required:true,
-    },
-
+    
     amount:{
         type:String,
         required:false,
     },
+    transactionType:{
+        type:String,
+        required:true,
+        enum:['utility','friends','transfers'],
+        default:'utility'
+    }
 
 
 },
