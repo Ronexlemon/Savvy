@@ -90,7 +90,7 @@ export default function LoginForm() {
             onChange={toggleColorMode}
           /> */}
           <HStack>
-            <Text>Don't have an account?</Text>
+            <Text>have an account?</Text>
             <Link href='signup'><Button>Signup</Button></Link>
           </HStack>
         </FormControl>

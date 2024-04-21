@@ -1,5 +1,5 @@
 import { Flex, Box, HStack, VStack,Text, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, useDisclosure } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdArrowUpward,MdArrowDownward } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -15,6 +15,8 @@ import { useRouter } from "next/router";
 import { BackendSavvyApi } from "@/constants/backendApi";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { getCUSDBalance } from "@/utils/getBalance";
+import { useAccount } from "wagmi";
 
 export type dataTotal ={
     utility:number,
@@ -24,7 +26,9 @@ export type dataTotal ={
 }
 export default function WalletPage() {
     const router = useRouter();
+    const { address, isConnected } = useAccount();
     const {data:session} = useSession();
+    const [result,setResult]  = useState(0);
     const token = session?.user.accesstokens as unknown as string;
     const getTotalTransaction = async () => {
         const res = await fetch(`${BackendSavvyApi}/transaction/getTotalAmount`, {
@@ -48,6 +52,19 @@ export default function WalletPage() {
       });
     
       console.log("data data", data);
+      useEffect(() => {
+        const fetchBalance = async () => {
+            try {
+                const result = await getCUSDBalance(address as string);
+                setResult(result ||0);
+            } catch (error) {
+                console.error("Error fetching CUSD balance:", error);
+            }
+        };
+        console.log("result",result)
+    
+        fetchBalance();
+    }, [address]); 
    
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
@@ -79,7 +96,7 @@ export default function WalletPage() {
 <Flex w='100%' direction='column' padding={1} maxH='100vh' height='100%' >
     <Flex w='100%' direction='column' padding={1} justifyContent='center' alignItems='center' color='black'  >
         <Text color='black'>Total Balance</Text>
-        <Text>$ 2,589</Text>
+        <Text>$$ { Number(result)}</Text>
         <HStack w='100%' direction='row' alignItems='center' justifyContent='center' gap={10} paddingTop={4}>
         <div className="rounded-full  border-green-500 border-2 h-14 w-14 flex justify-center items-center">
     <Button leftIcon={<GoPlus color="green"  />} />

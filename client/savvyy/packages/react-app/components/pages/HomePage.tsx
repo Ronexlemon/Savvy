@@ -1,5 +1,5 @@
 import { Flex, Box, HStack, VStack,Text, Button } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdArrowUpward,MdArrowDownward } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -12,6 +12,7 @@ import { getBalance } from '@wagmi/core'
 import { useBalance } from 'wagmi'
 import { BackendSavvyApi } from "@/constants/backendApi";
 import { useQuery } from "@tanstack/react-query";
+import { getCUSDBalance } from "@/utils/getBalance";
 
 export type dataTotal ={
     utility:number,
@@ -20,14 +21,13 @@ export type dataTotal ={
    
 }
 
-export default function Home() {
+export default  function Home() {
     const {data:session} = useSession();
     const { address, isConnected } = useAccount();
-    const result = useBalance({
-        address: address,
-      });
+    const [result,setResult]  = useState(0);
+    
 
-      console.log("results is reults",Number(result.data?.value))
+     // console.log("results is reults",Number(result.data?.value))
       const token = session?.user.accesstokens as unknown as string;
 
       const getTotalTransaction = async () => {
@@ -60,6 +60,19 @@ export default function Home() {
     
 
   console.log("token token", token);
+  useEffect(() => {
+    const fetchBalance = async () => {
+        try {
+            const result = await getCUSDBalance(address as string);
+            setResult(result ||0);
+        } catch (error) {
+            console.error("Error fetching CUSD balance:", error);
+        }
+    };
+    console.log("result",result)
+
+    fetchBalance();
+}, [address]); 
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
       <Flex h="100vh" direction="column" maxH="90vh" w="100%">
@@ -92,7 +105,7 @@ export default function Home() {
             <Flex direction='row' w='100%' height='50%'alignItems='center' alignContent='center' padding={8} justifyContent='space-between'>
                 <VStack>
                     <Text>Total Balance</Text>
-                    <Text>$$ { Number(result.data?.value)}</Text>
+                    <Text>$$ { Number(result)}</Text>
 
                 </VStack>
                 <HiDotsHorizontal />

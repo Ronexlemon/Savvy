@@ -6,7 +6,7 @@ export default function LandingPage() {
   return (
     
     <Container centerContent={true} maxH="100vh" position="static">
-      <Image src="/img/savvylogo.svg" />
+      <Image src="/img/savvylogo.svg"  alt="clear"/>
       <Link className="pt-14" href='/start'><Button backgroundColor='orange'> <Text>Get Started</Text></Button></Link>
       <Text
         color="white"
