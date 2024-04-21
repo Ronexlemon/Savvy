@@ -1,6 +1,7 @@
 const express = require("express");
 const App = express();
 const authroute = require("./routes/user")
+const transaction  = require("./routes/transaction")
 
 require('dotenv').config();
 
@@ -28,6 +29,7 @@ const PORT = 3000;
 })()
 
 App.use("/api/auth",authroute);
+App.use("/api/transaction",transaction);
 
 App.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
