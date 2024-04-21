@@ -6,7 +6,27 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { MdLocalGroceryStore } from "react-icons/md";
 import { GiThreeFriends } from "react-icons/gi";
 import { RiFolderReceivedFill,RiFolderTransferFill } from "react-icons/ri";
+import { useSession } from "next-auth/react";
+import { useAccount } from "wagmi";
+import { getBalance } from '@wagmi/core'
+import { useBalance } from 'wagmi'
+
 export default function Home() {
+    const {data:session} = useSession();
+    const { address, isConnected } = useAccount();
+    const result = useBalance({
+        address: address,
+      });
+
+      console.log("results is reults",Number(result.data?.value))
+    
+
+    
+
+    
+    const token = session?.user.accesstokens as unknown as string;
+
+  console.log("token token", token);
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
       <Flex h="100vh" direction="column" maxH="90vh" w="100%">
@@ -15,7 +35,7 @@ export default function Home() {
         <Flex direction='row' w='100%' height='50%'alignItems='center'  padding={8} justifyContent='space-between'>
                 <VStack spacing='5px'>
                     <Text >Welcome</Text>
-                    <Text>Ronex Lemon</Text>
+                    <Text>{session?.user.userdata.phoneNumber}</Text>
 
                 </VStack>
                 <VStack spacing='5px'>
@@ -39,7 +59,7 @@ export default function Home() {
             <Flex direction='row' w='100%' height='50%'alignItems='center' alignContent='center' padding={8} justifyContent='space-between'>
                 <VStack>
                     <Text>Total Balance</Text>
-                    <Text>$ 2,548.00</Text>
+                    <Text>$$ { Number(result.data?.value)}</Text>
 
                 </VStack>
                 <HiDotsHorizontal />
