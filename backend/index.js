@@ -17,7 +17,7 @@ App.use(express.urlencoded({ extended: true }));
 
 App.use(express.json());
 // CORS configuration
-const allowedOrigins = ["http://localhost:3000", "https://atlas-ke.net","http://localhost:3000/", "https://atlas-ke.net/"];
+const allowedOrigins = ["http://localhost:3000", "https://savvy-brown.vercel.app/","http://localhost:3000/", "https://savvy-brown.vercel.app"];
 App.use(cors({
     origin: allowedOrigins,
     exposedHeaders: 'Set-Cookie'
