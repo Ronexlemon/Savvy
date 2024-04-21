@@ -37,7 +37,7 @@ export default async function handler(
         
       },
       body: JSON.stringify({
-        transactionType: transactionType,
+        transanctiontype: transactionType,
         amount: amount,
         month: month,
       }),

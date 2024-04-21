@@ -1,5 +1,5 @@
 import { Flex, Box, HStack, VStack,Text, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, useDisclosure, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Select } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdArrowUpward,MdArrowDownward } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -16,20 +16,25 @@ import { SiCashapp } from "react-icons/si";
 import { CreateTransaction } from "@/config/APIConfig";
 import { useSession } from "next-auth/react";
 import { tokenPocketWallet } from "@rainbow-me/rainbowkit/dist/wallets/walletConnectors";
+import { transferCUSD } from "@/utils/send";
+import { useAccount } from "wagmi";
 export default function CashOutPage() {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [userAddress, setUserAddress] = useState("");
+    const { address, isConnected } = useAccount();
     const {data:session} = useSession();
     const format = (val:any) => `$` + val
-    const [value, setValue] = React.useState('0')
+    const [value, setValue] = useState('0')
     const [eoa, setEoa] = useState("");
   const [reason, setReason] = useState("");
-  const [amount, setAmount] = useState(0);
+ // const [amount, setAmount] = useState(0);
   function getCurrentMonthNumber(): number {
     const currentDate = new Date();
     return currentDate.getMonth() + 1;
 }
 const token = session?.user.accesstokens as unknown as string;
 console.log("tokn ssss",token)
+ 
     const handleCashout =async () => {
         // Perform cashout logic here
 
@@ -38,10 +43,23 @@ console.log("tokn ssss",token)
         console.log("Reason:", reason);
         console.log("Amount:", value);
         try{
-            const result = await CreateTransaction({transanctiontype:reason,amount:value,month:currentMonthNumber,token:token})
-            console.log(result?.status)
-        
-            // Close the modal after cashout
+          const tx = await transferCUSD(eoa,address as string, value)
+          console.log("Transaction successful:", tx);
+
+          // Proceed to create the transaction
+          if (tx) {
+              const result = await CreateTransaction({
+                  transanctiontype: reason,
+                  amount: value,
+                  month: currentMonthNumber,
+                  token: token
+              });
+              console.log("Transaction result status:", result?.status);
+          } else {
+              console.log("Transaction failed: No tx returned");
+              onClose();
+          }
+  
             onClose();
 
         }catch(error){
@@ -49,6 +67,12 @@ console.log("tokn ssss",token)
         }
        
       };
+
+  useEffect(() => {
+    if (isConnected && address) {
+      setUserAddress(address);
+    }
+  }, [address, isConnected]);
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
       <Flex h="100vh" direction="column" maxH="90vh" w="100%">
@@ -115,7 +139,7 @@ console.log("tokn ssss",token)
               <NumberInput isRequired={true}
       onChange={(valueString) => setValue(valueString)}
       value={format(value)}
-      max={50}
+      // max={50}
     >
       <NumberInputField />
       <NumberInputStepper>
