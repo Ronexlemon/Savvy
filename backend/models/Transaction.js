@@ -25,7 +25,7 @@ const  TransactionSchema = new Schema({
         enum:['utility','friends','transfers'],
         default:'utility'
     }
-
+    
 
 },
 {timestamps:true})
