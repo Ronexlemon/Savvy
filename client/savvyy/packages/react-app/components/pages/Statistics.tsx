@@ -15,7 +15,42 @@ import { FaCircleCheck } from "react-icons/fa6";
 import { SiCashapp } from "react-icons/si";
 
 import { FaDownload } from "react-icons/fa6";
+import { BackendSavvyApi } from "@/constants/backendApi";
+import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
+import LineChart from "../chart/lineChart";
+
+export type dataTotal ={
+    utility:number,
+    transfers:number,
+    friends:number,
+   
+}
 export default function StatisticPage() {
+    const {data:session} = useSession();
+    const token = session?.user.accesstokens as unknown as string;
+    const getTotalTransaction = async () => {
+        const res = await fetch(`${BackendSavvyApi}/transaction/getTotalAmount`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "omit",
+        });
+        if (!res.ok) {
+          throw new Error("Failed to fetch properties");
+        }
+        return res.json();
+      };
+    
+      const { data, error, isLoading } = useQuery<dataTotal>({
+        queryKey: ["properties"],
+        queryFn: getTotalTransaction,
+        enabled: !!token,
+      });
+    
+      console.log("data data", data);
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
       <Flex h="100vh" direction="column" maxH="90vh" w="100%">
@@ -43,30 +78,35 @@ export default function StatisticPage() {
 
   
        
-<div className="w-full   h-16   flex justify-center items-center text-black   ">
-        <HStack w="100%" justifyContent='space-around' alignItems='center'>
-            <Button rounded={10} backgroundColor='#438883' ><Text color='black'>Cards</Text></Button>
-            <Button rounded={15} ><Text color='black'>Cards</Text></Button>
-            <Button rounded={15} ><Text color='black'>Cards</Text></Button>
-            <Button rounded={15} ><Text color='black'>Cards</Text></Button>
+<div className="w-full   h-16   flex justify-center items-center text-black  bg-[#438883]   ">
+        <HStack  w="100%" justifyContent='space-around'spacing={8} direction='row' align='center' overflowX="auto" alignItems='center'>
+            <Button variant='solid'  rounded={10}  ><Text color='black'>Jan</Text></Button>
+            <Button rounded={15}  ><Text color='black'>Feb</Text></Button>
+            <Button rounded={15}  ><Text color='black'>Apr</Text></Button>
+            <Button rounded={15}  ><Text color='black'>May</Text></Button>
+            <Button rounded={10}  ><Text color='black'>June</Text></Button>
+            <Button rounded={15} ><Text color='black'>July</Text></Button>
+            <Button rounded={15} ><Text color='black'>Aug</Text></Button>
+            <Button rounded={15}><Text color='black'>Sep</Text></Button>
+            <Button rounded={15}><Text color='black'>Oct</Text></Button>
+            <Button rounded={15}><Text color='black'>Nov</Text></Button>
+            <Button rounded={15}><Text color='black'>Dec</Text></Button>
             
         </HStack>
 
 
     </div>
-    <div className="w-full   h-3/4  bg-[#438883] bg-opacity-10 flex justify-center items-center text-black mt-10 mb-10 ">
-        <Flex w="100%" justifyContent='space-around' alignItems='center'>
-            <div className="bg-[#FFFFFF] rounded-full h-20 w-20 flex justify-center items-center"><RiBankFill color="green" className="w-20 h-10"/></div>
-            <div className=" flex flex-col justify-center items-start ">
-                <Text fontSize='sm'>Onramp</Text>
-                <Text fontSize='sm'>Connect your bank </Text>
-                <Text fontSize='sm'>account to deposit & fund </Text>
-            </div>
-            
-            <FaCircleCheck color="green"  className="w-8 h-8"/>
-           
-
-        </Flex>
+    <div className="w-full   h-1/2  bg-[#438883] bg-opacity-10 flex justify-center items-center text-black mt-10 mb-10 ">
+       
+    <Flex
+        w="100%"
+        maxW="60%" 
+        h="90%"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <LineChart />
+      </Flex>
 
 
     </div>
@@ -86,7 +126,7 @@ export default function StatisticPage() {
                     <Text color='black'>Utility</Text>
                 </HStack>             
                 
-                <Text color='red.500'>-$ 2,548.00</Text>
+                <Text color='red.500'>-$  {data?.utility}</Text>
             </Flex>
             <Flex direction='row' w='100%' height='20%' alignItems='start'    justifyContent='space-between'  mb="10px">
                 <HStack>
@@ -94,7 +134,7 @@ export default function StatisticPage() {
                     <Text color='black'>Transfer</Text>
                 </HStack>             
                 
-                <Text color='red.500'>-$ 2,548.00</Text>
+                <Text color='red.500'>-$ {data?.transfers}</Text>
             </Flex>
             <Flex direction='row' w='100%' height='20%'alignItems='start'    justifyContent='space-between'  mb="10px">
                 <HStack>
@@ -102,7 +142,7 @@ export default function StatisticPage() {
                     <Text color='black'>Friends</Text>
                 </HStack>             
                 
-                <Text color='red.500'>-$ 2,548.00</Text>
+                <Text color='red.500'>-$ {data?.friends}</Text>
             </Flex>
           
 

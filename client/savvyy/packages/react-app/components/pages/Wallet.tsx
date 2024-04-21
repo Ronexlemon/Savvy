@@ -12,8 +12,42 @@ import { IoQrCodeSharp } from "react-icons/io5";
 import { BsFillSendFill } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { BackendSavvyApi } from "@/constants/backendApi";
+import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
+
+export type dataTotal ={
+    utility:number,
+    transfers:number,
+    friends:number,
+   
+}
 export default function WalletPage() {
     const router = useRouter();
+    const {data:session} = useSession();
+    const token = session?.user.accesstokens as unknown as string;
+    const getTotalTransaction = async () => {
+        const res = await fetch(`${BackendSavvyApi}/transaction/getTotalAmount`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "omit",
+        });
+        if (!res.ok) {
+          throw new Error("Failed to fetch properties");
+        }
+        return res.json();
+      };
+    
+      const { data, error, isLoading } = useQuery<dataTotal>({
+        queryKey: ["properties"],
+        queryFn: getTotalTransaction,
+        enabled: !!token,
+      });
+    
+      console.log("data data", data);
    
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
@@ -89,7 +123,7 @@ export default function WalletPage() {
                     <Text color='black'>Utility</Text>
                 </HStack>             
                 
-                <Text color='red.500'>-$ 2,548.00</Text>
+                <Text color='red.500'>-$  {data?.utility}</Text>
             </Flex>
             <Flex direction='row' w='100%' height='10%'alignItems='center'  padding={4} justifyContent='space-between'  mb="10px">
                 <HStack>
@@ -97,7 +131,7 @@ export default function WalletPage() {
                     <Text color='black'>Transfer</Text>
                 </HStack>             
                 
-                <Text color='red.500'>-$ 2,548.00</Text>
+                <Text color='red.500'>-$ {data?.transfers}</Text>
             </Flex>
             <Flex direction='row' w='100%' height='10%'alignItems='center'  padding={4} justifyContent='space-between' mb="10px">
                 <HStack>
@@ -114,7 +148,7 @@ export default function WalletPage() {
                     <Text color='black'>Friend3</Text>
                 </HStack>              
                 
-                <Text color='red.500'>-$ 48.00</Text>
+                <Text color='red.500'>-$  {data?.friends}</Text>
             </Flex>
             
 
