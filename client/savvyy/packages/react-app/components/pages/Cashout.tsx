@@ -13,21 +13,41 @@ import { BsFillSendFill } from "react-icons/bs";
 import { RiBankFill } from "react-icons/ri";
 import { FaCircleCheck } from "react-icons/fa6";
 import { SiCashapp } from "react-icons/si";
+import { CreateTransaction } from "@/config/APIConfig";
+import { useSession } from "next-auth/react";
+import { tokenPocketWallet } from "@rainbow-me/rainbowkit/dist/wallets/walletConnectors";
 export default function CashOutPage() {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const {data:session} = useSession();
     const format = (val:any) => `$` + val
     const [value, setValue] = React.useState('0')
     const [eoa, setEoa] = useState("");
   const [reason, setReason] = useState("");
   const [amount, setAmount] = useState(0);
-    const handleCashout = () => {
+  function getCurrentMonthNumber(): number {
+    const currentDate = new Date();
+    return currentDate.getMonth() + 1;
+}
+const token = session?.user.accesstokens as unknown as string;
+console.log("tokn ssss",token)
+    const handleCashout =async () => {
         // Perform cashout logic here
+
+        const currentMonthNumber = getCurrentMonthNumber();
         console.log("EOA:", eoa);
         console.log("Reason:", reason);
         console.log("Amount:", value);
-    
-        // Close the modal after cashout
-        onClose();
+        try{
+            const result = await CreateTransaction({transanctiontype:reason,amount:value,month:currentMonthNumber,token:token})
+            console.log(result?.status)
+        
+            // Close the modal after cashout
+            onClose();
+
+        }catch(error){
+            console.log("transaction error",error);
+        }
+       
       };
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">

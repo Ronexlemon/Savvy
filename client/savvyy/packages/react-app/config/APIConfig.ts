@@ -1,10 +1,18 @@
 
 import { signIn } from "next-auth/react";
+import { transactionType } from "viem";
 
 export type dataSignInUser = {
   phoneNumber: string;
   password: string;
 };
+
+export type Transaction ={
+  transanctiontype:string,
+  amount:string,
+  month:number,
+  token:any
+}
 
 
 export const SignInUserr = async (userDetails: dataSignInUser) => {
@@ -21,16 +29,18 @@ export const SignInUserr = async (userDetails: dataSignInUser) => {
   };
 
 
-  export const SignInUser = async (userDetails: dataSignInUser) => {
+  export const CreateTransaction = async (transactionDetails: Transaction) => {
     try {
-      const res = await fetch("api/auth/login", {
+      const res = await fetch("api/cashout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            phoneNumber: userDetails.phoneNumber,
-            password: userDetails.password,
+           transactionType:transactionDetails.transanctiontype,
+           amount: transactionDetails.amount,
+           month:transactionDetails.month,
+           token:transactionDetails.token
         }),
       });
       return res;

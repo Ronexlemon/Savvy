@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import { Container, Image, Text, Button, Stack,FormControl,Box,Flex, Heading, Input, FormLabel, Switch, useColorMode, useColorModeValue, HStack } from "@chakra-ui/react";
 import {MdCall,MdSend} from "react-icons/md"
 import Link from "next/link";
-import { SignInUser, SignInUserr } from "@/config/APIConfig";
+import {  SignInUserr } from "@/config/APIConfig";
 import NextAuth from "next-auth";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
