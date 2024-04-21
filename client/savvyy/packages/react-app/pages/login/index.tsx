@@ -9,6 +9,7 @@ import GetStartedPage from "@/components/pages/GetStarted";
 import SignUpForm from "@/components/pages/signupForm";
 import LoginForm from "@/components/pages/loginForm";
 
+
 const SignUp:NextPageWithLayout =()=> {
     const [userAddress, setUserAddress] = useState("");
     const [isMounted, setIsMounted] = useState(false);

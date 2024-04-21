@@ -1,0 +1,1 @@
+export const BackendSavvyApi = "https://savvy-i2x3.onrender.com/api"
