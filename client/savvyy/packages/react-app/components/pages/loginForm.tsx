@@ -31,7 +31,7 @@ export default function LoginForm() {
     try{
       const res = await SignInUserr({phoneNumber:phoneNumber,password:password})
       // Check if response status is 200
-      if (res?.status === 200) {
+      if (res?.url) {
         // Navigate to homepage
         router.push("/homepage");
       }
