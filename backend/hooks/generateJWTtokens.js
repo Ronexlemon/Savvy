@@ -6,7 +6,6 @@ const generateAccessToken =async(userPhoneNumber,userId)=>{
     const accestoken = jwt.sign({
             user:{
                 phoneNumber: userPhoneNumber,
-               
                 id: userId
             }
         },process.env.ACCESS_TOKEN_SECERT,{expiresIn:"1d"}) // to change to 15 mins on production

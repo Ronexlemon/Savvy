@@ -5,10 +5,10 @@ const router = express.Router();
 const {getAllTransaction,getTotalMonthAmount,getTotalAmount,createATransaction,getFriendsTransaction,getTransfersTransaction,getUtilityTransaction} = require("../controllers/transactionController/transactionController")
 const {validateToken} = require("../middleWare/handleJwtToken")
 
-router.post("/create",createATransaction)
+router.post("/create",validateToken,createATransaction)
 
 
-router.post("/getTotalAmount",validateToken,getTotalAmount);
+router.get("/getTotalAmount",validateToken,getTotalAmount);
 
 router.get("/getTotalMontlyAmount",validateToken,getTotalMonthAmount)
 router.get("/getAllTransactions",validateToken,getAllTransaction);

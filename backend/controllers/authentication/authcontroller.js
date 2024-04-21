@@ -53,6 +53,8 @@ const login = asyncHandler(async(req,res)=>{
 
         }
         const passMatch = await compareHashPassword(password,user.password);
+        console.log("user id",user._id)
+       
         if(passMatch){
             const accestoken = await generateAccessToken(user.phoneNumber,user._id)
 

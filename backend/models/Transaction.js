@@ -8,7 +8,7 @@ const  TransactionSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true,
-        unique: true // Ensures each user has only one profile
+       
       },
     
     amount:{
@@ -31,4 +31,4 @@ const  TransactionSchema = new Schema({
 {timestamps:true})
 
 
-module.exports = mongoose.models.Transaction || mongoose.Model("Transaction",TransactionSchema)
+module.exports = mongoose.models.Transaction || mongoose.model("Transaction", TransactionSchema);

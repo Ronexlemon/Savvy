@@ -6,12 +6,13 @@ const {getAllTotal,getAllFriendsTransaction,getAllUtilityTransaction,getAllTrans
 
 
 const createATransaction = asyncHandler(async(req,res)=>{
-    const {id} = req.user
+   
+    
     const {transanctiontype,amount,month} = req.body;
     try{
 
-        const transaction = await createTransaction(id,transanctiontype,amount,month);
-        if(!transaction){
+        const transaction = await createTransaction(req.user.id,transanctiontype,amount,month);
+        if(!transaction || transaction.length ==0){
             return res.status(404).json({
                 status:false,
                 message:"No transactions Created"
@@ -21,6 +22,7 @@ const createATransaction = asyncHandler(async(req,res)=>{
         return res.status(200).json({message:"created successively"}          
         );
     }catch(error){
+        console.log("error",error)
         return res.status(500).json({message:"please try another time"})
 
     }
@@ -31,10 +33,10 @@ const createATransaction = asyncHandler(async(req,res)=>{
 
 
 const getAllTransaction = asyncHandler(async(req,res)=>{
-    const {id} = req.user
+   
     try{
 
-        const transactions = await getAllTransactions(id);
+        const transactions = await getAllTransactions(req.user.id);
         if(!transactions || transactions.length ==0){
             return res.status(404).json({
                 status:false,
@@ -54,10 +56,10 @@ const getAllTransaction = asyncHandler(async(req,res)=>{
 
 //get all friends transactions
 const getFriendsTransaction = asyncHandler(async(req,res)=>{
-    const {id} = req.user
+    
     try{
 
-        const transactions = await getAllFriendsTransaction(id);
+        const transactions = await getAllFriendsTransaction(req.user.id);
         if(!transactions || transactions.length ==0){
             return res.status(404).json({
                 status:false,
@@ -77,10 +79,10 @@ const getFriendsTransaction = asyncHandler(async(req,res)=>{
 
 //get all friends transactions
 const getUtilityTransaction = asyncHandler(async(req,res)=>{
-    const {id} = req.user
+    
     try{
 
-        const transactions = await getAllUtilityTransaction(id);
+        const transactions = await getAllUtilityTransaction(req.user.id);
         if(!transactions || transactions.length ==0){
             return res.status(404).json({
                 status:false,
@@ -101,10 +103,10 @@ const getUtilityTransaction = asyncHandler(async(req,res)=>{
 
 //get all friends transactions
 const getTransfersTransaction = asyncHandler(async(req,res)=>{
-    const {id} = req.user
+   
     try{
 
-        const transactions = await getAllTransfersTransaction(id);
+        const transactions = await getAllTransfersTransaction(req.user.id);
         if(!transactions || transactions.length ==0){
             return res.status(404).json({
                 status:false,
@@ -127,10 +129,10 @@ const getTransfersTransaction = asyncHandler(async(req,res)=>{
 //total
 
 const getTotalAmount = asyncHandler(async(req,res)=>{
-    const {id} = req.user
+   
     try{
 
-        const transactions = await getAllTotal(id);
+        const transactions = await getAllTotal(req.user.id);
         if(!transactions || transactions.length ==0){
             return res.status(404).json({
                 status:false,
@@ -152,11 +154,11 @@ const getTotalAmount = asyncHandler(async(req,res)=>{
 //get all mont total
 
 const getTotalMonthAmount = asyncHandler(async(req,res)=>{
-    const {id} = req.user
+   
     const {month} = req.body
     try{
 
-        const transactions = await getAllMonthTotal(id,month);
+        const transactions = await getAllMonthTotal(req.user.id,month);
         if(!transactions || transactions.length ==0){
             return res.status(404).json({
                 status:false,

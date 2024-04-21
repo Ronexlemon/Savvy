@@ -25,9 +25,11 @@ const validateToken = asyncHandler(async (req, res, next) => {
         return res.status(403).json({message:"Forbiden"});
         
       }
+      
       req.user = decoded.user;
       next();
     });
+
 
     
   }else{
