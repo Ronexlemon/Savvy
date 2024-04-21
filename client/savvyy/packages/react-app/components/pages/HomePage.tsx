@@ -10,6 +10,15 @@ import { useSession } from "next-auth/react";
 import { useAccount } from "wagmi";
 import { getBalance } from '@wagmi/core'
 import { useBalance } from 'wagmi'
+import { BackendSavvyApi } from "@/constants/backendApi";
+import { useQuery } from "@tanstack/react-query";
+
+export type dataTotal ={
+    utility:number,
+    transfers:number,
+    friends:number,
+   
+}
 
 export default function Home() {
     const {data:session} = useSession();
@@ -19,12 +28,36 @@ export default function Home() {
       });
 
       console.log("results is reults",Number(result.data?.value))
+      const token = session?.user.accesstokens as unknown as string;
+
+      const getTotalTransaction = async () => {
+        const res = await fetch(`${BackendSavvyApi}/transaction/getTotalAmount`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "omit",
+        });
+        if (!res.ok) {
+          throw new Error("Failed to fetch properties");
+        }
+        return res.json();
+      };
+    
+      const { data, error, isLoading } = useQuery<dataTotal>({
+        queryKey: ["properties"],
+        queryFn: getTotalTransaction,
+        enabled: !!token,
+      });
+    
+      console.log("data data", data);
     
 
     
 
     
-    const token = session?.user.accesstokens as unknown as string;
+    
 
   console.log("token token", token);
   return (
@@ -73,7 +106,7 @@ export default function Home() {
                 </VStack>
                 <VStack spacing='5px'>
                 <Button leftIcon={<MdArrowUpward color="red"/>} >Expenses</Button>
-                    <Text>$ 2,548.00</Text>
+                    <Text>$ {(data?.utility || 0) + (data?.friends || 0) + (data?.transfers || 0)}</Text>
 
                 </VStack>
                 
@@ -95,7 +128,7 @@ export default function Home() {
                     <Text color='black'>Utility</Text>
                 </HStack>             
                 
-                <Text color='red.500'>-$ 2,548.00</Text>
+                <Text color='red.500'>-$  {data?.utility}.00</Text>
             </Flex>
             <Flex direction='row' w='100%' height='10%'alignItems='center'  padding={4} justifyContent='space-between'  mb="10px">
                 <HStack>
@@ -103,7 +136,7 @@ export default function Home() {
                     <Text color='black'>Transfer</Text>
                 </HStack>             
                 
-                <Text color='red.500'>-$ 2,548.00</Text>
+                <Text color='red.500'>-$ {data?.transfers}.00</Text>
             </Flex>
             <Flex direction='row' w='100%' height='10%'alignItems='center'  padding={4} justifyContent='space-between' mb="10px">
                 <HStack>
@@ -120,7 +153,7 @@ export default function Home() {
                     <Text color='black'>Friends</Text>
                 </HStack>              
                 
-                <Text color='red.500'>-$ 48.00</Text>
+                <Text color='red.500'>-$ {data?.friends}.00</Text>
             </Flex>
             
 
