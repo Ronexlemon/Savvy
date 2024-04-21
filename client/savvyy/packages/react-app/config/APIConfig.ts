@@ -48,3 +48,23 @@ export const SignInUserr = async (userDetails: dataSignInUser) => {
       console.log("failed to register", error);
     }
   };
+
+
+  export const UserSignUp = async (userDetails: dataSignInUser) => {
+    try {
+      const res = await fetch("api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phoneNumber: userDetails.phoneNumber,
+          password: userDetails.password,
+      
+        }),
+      });
+      return res;
+    } catch (error) {
+      console.log("failed to register", error);
+    }
+  };

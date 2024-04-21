@@ -1,68 +1,100 @@
-import React from "react";
-import { Container, Image, Text, Button, Stack,FormControl,Box,Flex, Heading, Input, FormLabel, Switch, useColorMode, useColorModeValue, HStack } from "@chakra-ui/react";
-import {MdCall,MdSend} from "react-icons/md"
+import React, { useState } from "react";
+import {
+  Flex,
+  Heading,
+  Input,
+  Button,
+  FormControl,
+  Text,
+  HStack,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
+import { UserSignUp } from "@/config/APIConfig";
 
 export default function SignUpForm() {
-  const { toggleColorMode } = useColorMode();
-  const formBackground = useColorModeValue('gray.100', 'gray.700')
+  const router = useRouter();
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const formBackground = useColorModeValue('gray.100', 'gray.700');
+
+  const handleSubmit = async() => {
+    // Do something with the form data
+    console.log("Phone Number:", phoneNumber);
+    console.log("Password:", password);
+    console.log("Confirm Password:", confirmPassword);
+    try{
+      const res = await UserSignUp({phoneNumber:phoneNumber,password:password});
+      if (res?.status === 200) {
+        // Navigate to homepage
+        router.push("/login");
+      }
+
+
+    }catch(error){
+
+    }
+
+    // Reset the form fields
+    setPhoneNumber("");
+    setPassword("");
+    setConfirmPassword("");
+  };
+
   return (
-   
     <Flex h="100vh" alignItems="center" justifyContent="center">
       <Flex
         flexDirection="column"
-        bg={formBackground}
         p={12}
+        bg={formBackground}
         borderRadius={8}
         boxShadow="lg"
       >
         <Heading mb={6}>SignUp</Heading>
-        <Input
-          placeholder="+254701707772"
-          type="number"
-          variant="filled"
-          mb={3}
-          required= {true}
-
-        />
-        <Input
-          placeholder="**********"
-          type="password"
-          variant="filled"
-          mb={3}
-        />
-        <Input
-          placeholder="confirm Password"
-          type="password"
-          variant="filled"
-          mb={6}
-        />
-        <Button colorScheme="teal" mb={8}>
+        <FormControl mb={3}>
+          <Input
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            placeholder="+254701707772"
+            type="number"
+            variant="filled"
+            required={true}
+          />
+        </FormControl>
+        <FormControl mb={3}>
+          <Input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="**********"
+            type="password"
+            variant="filled"
+            required={true}
+          />
+        </FormControl>
+        <FormControl mb={6}>
+          <Input
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm Password"
+            type="password"
+            variant="filled"
+            required={true}
+          />
+        </FormControl>
+        <Button onClick={handleSubmit} colorScheme="teal" mb={8}>
           Sign up
         </Button>
         <FormControl display="flex" alignItems="center">
-          {/* <FormLabel htmlFor="dark_mode" mb="0">
-            
-            Enable Dark Mode?
-          </FormLabel>
-          <Switch
-            id="dark_mode"
-            colorScheme="teal"
-            size="lg"
-            onChange={toggleColorMode}
-          /> */}
           <HStack>
             <Text>Have an account</Text>
-            <Link href='login'><Button >Login</Button></Link>
-            
+            <Link href="login">
+              <Button>Login</Button>
+            </Link>
           </HStack>
-         
-          
         </FormControl>
       </Flex>
     </Flex>
-  
-   
   );
 }
