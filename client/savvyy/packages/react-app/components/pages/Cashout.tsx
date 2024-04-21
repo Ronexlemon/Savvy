@@ -1,4 +1,4 @@
-import { Flex, Box, HStack, VStack,Text, Button } from "@chakra-ui/react";
+import { Flex, Box, HStack, VStack,Text, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdArrowUpward,MdArrowDownward } from "react-icons/md";
@@ -14,6 +14,7 @@ import { RiBankFill } from "react-icons/ri";
 import { FaCircleCheck } from "react-icons/fa6";
 import { SiCashapp } from "react-icons/si";
 export default function CashOutPage() {
+    const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
       <Flex h="100vh" direction="column" maxH="90vh" w="100%">
@@ -50,7 +51,43 @@ export default function CashOutPage() {
 
 
     </div>
-    <div className="w-3/4 mr-5  h-1/4 rounded-2xl bg-[#438883] bg-opacity-10 flex justify-center items-center text-black mt-10 mb-10 ">
+
+    <Modal
+        // initialFocusRef={initialRef}
+        // finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Make Payment</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>EOA</FormLabel>
+              <Input  placeholder='First name' />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Reason</FormLabel>
+              <Input placeholder='Last name' />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Amount</FormLabel>
+              <Input placeholder='Last name' />
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3}>
+              Save
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+    <div  className="w-3/4 mr-5  h-1/4 rounded-2xl bg-[#438883] bg-opacity-10 flex justify-center items-center text-black mt-10 mb-10 ">
         <Flex w="100%" justifyContent='space-around' alignItems='center'>
             <div className="bg-[#FFFFFF] rounded-full h-20 w-20 flex justify-center items-center"><RiBankFill color="green" className="w-20 h-10"/></div>
             <div className=" flex flex-col justify-center items-start ">
@@ -66,8 +103,9 @@ export default function CashOutPage() {
 
 
     </div>
-    <div className="w-3/4 mr-5  h-24 rounded-2xl bg-gray-300 flex justify-center items-center text-black mt-10 mb-10 ">
-    <Flex w="100%" justifyContent='space-around' alignItems='center' paddingRight={2}>
+    <div  onClick={onOpen}  className="w-3/4 mr-5  h-24 rounded-2xl bg-gray-300 flex justify-center items-center text-black mt-10 mb-10 ">
+        
+    <Flex  w="100%" justifyContent='space-around' alignItems='center' paddingRight={2}>
             <div className=" rounded-full h-10 w-10 flex justify-center items-center"><SiCashapp  color="#888888" className="w-10 h-10"/></div>
             <div className=" flex flex-col justify-center items-start ">
                 <Text fontSize='sm'>Withdraw to EOA</Text>
@@ -78,6 +116,7 @@ export default function CashOutPage() {
           
 
         </Flex>
+        
 
 
     </div>

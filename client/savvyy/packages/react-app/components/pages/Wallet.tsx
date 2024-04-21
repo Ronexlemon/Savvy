@@ -1,4 +1,4 @@
-import { Flex, Box, HStack, VStack,Text, Button } from "@chakra-ui/react";
+import { Flex, Box, HStack, VStack,Text, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdArrowUpward,MdArrowDownward } from "react-icons/md";
@@ -11,7 +11,10 @@ import { GoPlus } from "react-icons/go";
 import { IoQrCodeSharp } from "react-icons/io5";
 import { BsFillSendFill } from "react-icons/bs";
 import Link from "next/link";
+import { useRouter } from "next/router";
 export default function WalletPage() {
+    const router = useRouter();
+   
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
       <Flex h="100vh" direction="column" maxH="90vh" w="100%">
@@ -49,7 +52,7 @@ export default function WalletPage() {
 </div>
 
 <div className="rounded-full border-2 border-green-500 h-14 w-14 flex justify-center items-center">
-    <Button leftIcon={<IoQrCodeSharp  color="green"  />} />
+    <Button onClick={()=>router.push("/cashout")} leftIcon={<IoQrCodeSharp  color="green"  />} />
 </div>
 <div className="rounded-full border-2 border-green-500 h-14 w-14 flex justify-center items-center">
     <Button leftIcon={<BsFillSendFill color="green"  />} />
@@ -75,6 +78,7 @@ export default function WalletPage() {
 
     </div>
 
+    
 
 
     
