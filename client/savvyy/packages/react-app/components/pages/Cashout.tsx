@@ -1,5 +1,5 @@
-import { Flex, Box, HStack, VStack,Text, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, useDisclosure } from "@chakra-ui/react";
-import React from "react";
+import { Flex, Box, HStack, VStack,Text, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, useDisclosure, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Select } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdArrowUpward,MdArrowDownward } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -15,6 +15,20 @@ import { FaCircleCheck } from "react-icons/fa6";
 import { SiCashapp } from "react-icons/si";
 export default function CashOutPage() {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const format = (val:any) => `$` + val
+    const [value, setValue] = React.useState('0')
+    const [eoa, setEoa] = useState("");
+  const [reason, setReason] = useState("");
+  const [amount, setAmount] = useState(0);
+    const handleCashout = () => {
+        // Perform cashout logic here
+        console.log("EOA:", eoa);
+        console.log("Reason:", reason);
+        console.log("Amount:", value);
+    
+        // Close the modal after cashout
+        onClose();
+      };
   return (
     <div className="flex h-full w-screen bg-gray-100 relative">
       <Flex h="100vh" direction="column" maxH="90vh" w="100%">
@@ -65,22 +79,36 @@ export default function CashOutPage() {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>EOA</FormLabel>
-              <Input  placeholder='First name' />
+              <Input  onChange={(e) => setEoa(e.target.value)} required={true}  placeholder='0x64657YT563EURWE7689QU' />
             </FormControl>
 
             <FormControl mt={4}>
               <FormLabel>Reason</FormLabel>
-              <Input placeholder='Last name' />
+              <Select  required={true} size='sm' maxW="50%" w='100%'  placeholder='Select option'  onChange={(e) => setReason(e.target.value)}>
+  <option value='utility'>Utility</option>
+  <option value='friends'>Friends</option>  
+  <option value='transfers'>Transfers</option>
+</Select>
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Amount</FormLabel>
-              <Input placeholder='Last name' />
+              <NumberInput isRequired={true}
+      onChange={(valueString) => setValue(valueString)}
+      value={format(value)}
+      max={50}
+    >
+      <NumberInputField />
+      <NumberInputStepper>
+        <NumberIncrementStepper />
+        <NumberDecrementStepper />
+      </NumberInputStepper>
+    </NumberInput>
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3}>
-              Save
+            <Button colorScheme='blue' mr={3} onClick={handleCashout}>
+              Cashout
             </Button>
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>
